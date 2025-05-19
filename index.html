@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -27,7 +26,7 @@
         }
         h1 {
             font-size: 48px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* ظل احترافي */
         }
         .warning, .success {
             max-width: 800px;
@@ -38,7 +37,7 @@
             color: white;
         }
         .warning {
-            background-color: rgba(0, 0, 128, 0.6);
+            background-color: rgba(0, 0, 128, 0.6); /* لون أزرق متناسق */
             border: none;
         }
         .success {
@@ -62,8 +61,6 @@
         
         window.addEventListener('load', function() {
             checkGoldHENStatus();
-            loadPayload();
-            setupErrorListeners();
         });
         
         function checkGoldHENStatus() {
@@ -111,55 +108,12 @@
         });
         
         document.addEventListener('keydown', function(e) {
-            if (e.keyCode === 88 || e.key === 'x' || e.key === 'X') {
+            if (e.keyCode === 88  e.key === 'x'  e.key === 'X') {
                 setTimeout(function() {
                     goldhenSuccess();
                 }, 500);
             }
         });
-
-        // تحميل ومعالجة الحمولة من سلسلة Base64
-        function loadPayload() {
-            const base64String = "BASE64_ENCODED_STRING_HERE"; // ضع هنا السلسلة Base64 المحولة من payload.bin
-            const binaryString = atob(base64String);
-            const len = binaryString.length;
-            const bytes = new Uint8Array(len);
-            for (let i = 0; i < len; i++) {
-                bytes[i] = binaryString.charCodeAt(i);
-            }
-            window.pld = new Uint32Array(bytes.buffer);
-            console.log('Payload loaded:', window.pld);
-            // يمكنك إضافة عمليات إضافية لمعالجة الحمولة هنا
-        }
-
-        // إعداد مستمعي الأخطاء
-        function setupErrorListeners() {
-            addEventListener('unhandledrejection', event => {
-                const reason = event.reason;
-                alert(
-                    'Unhandled rejection\n'
-                    + `${reason}\n`
-                    + `${reason.sourceURL}:${reason.line}:${reason.column}\n`
-                    + `${reason.stack}`
-                );
-            });
-
-            addEventListener('error', event => {
-                const reason = event.error;
-                alert(
-                    'Unhandled error\n'
-                    + `${reason}\n`
-                    + `${reason.sourceURL}:${reason.line}:${reason.column}\n`
-                    + `${reason.stack}`
-                );
-                return true;
-            });
-
-            // استيراد البرنامج بحيث يمكن التعامل مع أخطاء بناء الجملة
-            import('./psfree.mjs').catch(err => {
-                console.error('Failed to import psfree.mjs:', err);
-            });
-        }
     </script>
 </head>
 <body>
@@ -175,7 +129,7 @@
         </ul>
     </div>
     <div id="progress">
-        <h2 id="msgs2">ʙʏ ᴀʟ-sᴀʜᴇʟ4ɢᴀᴍɪɴɢ </h2>
+        <h2 id="msgs2">جاري تحميل الجيلبريك، يرجى الانتظار بضع ثوانٍ...</h2>
     </div>
     <div id="menu" style="display: none">
         <div class="success">
