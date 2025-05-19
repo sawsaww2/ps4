@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset='utf-8'>
+    <title>PS4 JAILBREAK 9.00</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @font-face {
+            font-family: 'logging';
+            src: url('fonts/LiberationMono-Regular.ttf');
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('كود.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            color: white;
+            font-family: 'logging', sans-serif;
+            text-align: center;
+        }
+        h1, h2, p {
+            color: white;
+        }
+        h1 {
+            font-size: 48px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        .warning, .success {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: right;
+            color: white;
+        }
+        .warning {
+            background-color: rgba(0, 0, 128, 0.6);
+            border: none;
+        }
+        .success {
+            background-color: rgba(0, 255, 0, 0.6);
+            border: none;
+        }
+        ul {
+            list-style-position: inside;
+        }
+        hr {
+            border: none;
+            height: 1px;
+            background-color: white;
+            margin: 20px 0;
+        }
+    </style>
+    <script>
+        if (window.applicationCache && window.applicationCache.status === 0) {
+            window.location.replace("cache.html");
+        }
+        
+        window.addEventListener('load', function() {
+            checkGoldHENStatus();
+            loadPayload();
+        });
+        
+        function checkGoldHENStatus() {
+            if (window.localStorage.getItem('goldhen_activated') === 'true') {
+                showSuccess();
+                return true;
+            }
+            
+            try {
+                if (window.goldhen_loaded === true) {
+                    showSuccess();
+                    return true;
+                }
+            } catch (e) {}
+            
+            return false;
+        }
+        
+        function showSuccess() {
+            document.getElementById('progress').style.display = 'none';
+            document.getElementById('menu').style.display = 'block';
+            document.getElementById('status_msg').innerHTML = "تم تفعيل GoldHEN بنجاح!";
+        }
+        
+        function goldhenSuccess() {
+            window.localStorage.setItem('goldhen_activated', 'true');
+            window.goldhen_loaded = true;
+            
+            showSuccess();
+        }
+        
+        window.allset = function() {
+            goldhenSuccess();
+        };
+        
+        document.addEventListener('DOMNodeInserted', function(e) {
+            if (e.target && e.target.textContent) {
+                const text = e.target.textContent.toLowerCase();
+                if (text.includes('jailbreak has been successful') || 
+                    text.includes('goldhen') || 
+                    text.includes('تم تفعيل goldhen')) {
+                    goldhenSuccess();
+                }
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 88 || e.key === 'x' || e.key === 'X') {
+                setTimeout(function() {
+                    goldhenSuccess();
+                }, 500);
+            }
+        });
+
+        // الكود الجديد لتحميل ومعالجة الحمولة
+        function loadPayload() {
+            fetch('./payload.bin').then(res => {
+                res.arrayBuffer().then(arr => {
+                    window.pld = new Uint32Array(arr);
+                    console.log('Payload loaded:', window.pld);
+                    // يمكنك إضافة عمليات إضافية لمعالجة الحمولة هنا
+                })
+            }).catch(err => {
+                console.error('Failed to load payload:', err);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>PS4 JAILBREAK 9.00</h1>
+    <hr>
+    <div class="warning">
+        <strong>تنبيه هام</strong> 
+        <ul>
+            <li> صـفحة جـلـبريك 9.00 بـالـلغة الـعربـيـة </li>
+            <li>فـي هـذا الـصفحة لاتـحتـاج الـى فـلـاش </li>
+            <li>فـي حـال ظـهـور أي واجـهة تـحتوي على زر "مـوافـق" أو "إغـلاق الصفحة"، قـم بـالـضغط عـلى "مـوافق" بـدون تـردد، فـلا حاجـة لإدخـال أي قـطعـة خـارجية</li>
+            <li>تـصـميم الـصفحة مـن قـبل الـاخ لُــوي </li>
+        </ul>
+    </div>
+    <div id="progress">
+        <h2 id="msgs2">جاري تحميل الجيلبريك، يرجى الانتظار بضع ثوانٍ...</h2>
+    </div>
+    <div id="menu" style="display: none">
+        <div class="success">
+            <h2 id="status_msg">تم تفعيل GoldHEN بنجاح!</h2>
+        </div>
+    </div>
+    <pre id='console'></pre>
+    <script src="payload.js"></script>
+    <script type='module' src='./alert.mjs'></script>
+</body>
+</html>
